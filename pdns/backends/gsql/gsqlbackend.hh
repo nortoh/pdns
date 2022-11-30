@@ -29,7 +29,7 @@
 
 bool isDnssecDomainMetadata (const string& name);
 
-/* 
+/*
 GSQLBackend is a generic backend used by other sql backends
 */
 class GSQLBackend : public DNSBackend
@@ -41,7 +41,7 @@ public:
     freeStatements();
     d_db.reset();
   }
-  
+
   void setDB(SSql *db)
   {
     freeStatements();
@@ -66,7 +66,7 @@ protected:
       d_InfoOfAllSlaveDomainsQuery_stmt = d_db->prepare(d_InfoOfAllSlaveDomainsQuery, 0);
       d_SuperMasterInfoQuery_stmt = d_db->prepare(d_SuperMasterInfoQuery, 2);
       d_GetSuperMasterIPs_stmt = d_db->prepare(d_GetSuperMasterIPs, 2);
-      d_AddSuperMaster_stmt = d_db->prepare(d_AddSuperMaster, 3); 
+      d_AddSuperMaster_stmt = d_db->prepare(d_AddSuperMaster, 3);
       d_RemoveAutoPrimary_stmt = d_db->prepare(d_RemoveAutoPrimaryQuery, 2);
       d_ListAutoPrimaries_stmt = d_db->prepare(d_ListAutoPrimariesQuery, 0);
       d_InsertZoneQuery_stmt = d_db->prepare(d_InsertZoneQuery, 4);
@@ -238,7 +238,7 @@ public:
   bool getAllDomainMetadata(const DNSName& name, std::map<std::string, std::vector<std::string> >& meta) override;
   bool getDomainMetadata(const DNSName& name, const std::string& kind, std::vector<std::string>& meta) override;
   bool setDomainMetadata(const DNSName& name, const std::string& kind, const std::vector<std::string>& meta) override;
-  
+
   bool removeDomainKey(const DNSName& name, unsigned int id) override;
   bool activateDomainKey(const DNSName& name, unsigned int id) override;
   bool deactivateDomainKey(const DNSName& name, unsigned int id) override;
@@ -444,4 +444,5 @@ protected:
   bool d_dnssecQueries;
   bool d_inTransaction{false};
   bool d_upgradeContent{false};
+  bool d_ignorebogus{false};
 };

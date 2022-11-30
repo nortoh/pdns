@@ -78,6 +78,7 @@ public:
     declare(suffix, "pragma-synchronous", "Set this to 0 for blazing speed", "");
     declare(suffix, "pragma-foreign-keys", "Enable foreign key constraints", "no");
     declare(suffix, "pragma-journal-mode", "SQLite3 journal mode", "WAL");
+    declare(suffix, "ignore-bogus-records", "The database might have some incorrect record data, this causes PowerDNS to fail, where tinydns would send out truncated data. This option makes powerdns ignore that data!", "no");
 
     declare(suffix, "dnssec", "Enable DNSSEC processing", "no");
 

@@ -44,6 +44,8 @@ GSQLBackend::GSQLBackend(const string &mode, const string &suffix)
   d_db = nullptr;
   d_logprefix="["+mode+"Backend"+suffix+"] ";
 
+  d_ignorebogus = mustDo("ignore-bogus-records");
+
   try {
     d_dnssecQueries = mustDo("dnssec");
   }
@@ -1447,7 +1449,11 @@ skiprow:
         ASSERT_ROW_COLUMNS(d_query_name, row, 9); // list()
       }
     } catch (SSqlException &e) {
-      throw PDNSException("GSQLBackend get: "+e.txtReason());
+      if (d_ignorebogus) {
+        goto skiprow;
+      } else {
+        throw PDNSException("GSQLBackend get: "+e.txtReason());
+      }
     }
     try {
       extractRecord(row, r);
